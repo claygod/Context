@@ -8,7 +8,7 @@ Context library stores designed to store the application context.
 
 An example of using the Context Library:
 
-```golang
+```go
 package main
 
 import (
