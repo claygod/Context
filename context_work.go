@@ -45,9 +45,8 @@ func (c *Node) search(key interface{}) interface{} {
 	}
 	if c.parent != nil {
 		return c.parent.search(key)
-	} else {
-		return nil
 	}
+	return nil
 }
 
 // add - add a node to a new variable.
