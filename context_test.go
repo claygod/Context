@@ -60,3 +60,43 @@ func TestGetMidContext(t *testing.T) {
 		t.Error("Error in getting a modified variable")
 	}
 }
+
+func TestFixContext(t *testing.T) {
+	c1 := New()
+	c1.Set("a", 5)
+	c1.Set("b", 6)
+	c1.Set("c", 7)
+
+	c10 := c1.Fix()
+	c10.Set("a", 15)
+	c10.Set("b", 16)
+	c10.Set("c", 17)
+
+	c20 := c1.Fix()
+	c20.Set("a", 25)
+
+	if c1.Get("a") != 5 {
+		t.Error("Error in getting a modified variable 'a' - 5 != ", c1.Get("a"))
+	}
+	if c1.Get("b") != 6 {
+		t.Error("Error in getting a modified variable 'b' - 6 != ", c1.Get("b"))
+	}
+	if c1.Get("c") != 7 {
+		t.Error("Error in getting a modified variable 'c' - 7 != ", c1.Get("c"))
+	}
+	if c10.Get("a") != 15 {
+		t.Error("Error in getting a modified variable 'a' - 15 != ", c10.Get("a"))
+	}
+	if c10.Get("b") != 16 {
+		t.Error("Error in getting a modified variable 'b' - 16 != ", c10.Get("b"))
+	}
+	if c10.Get("c") != 17 {
+		t.Error("Error in getting a modified variable 'c' - 17 != ", c10.Get("c"))
+	}
+	if c20.Get("a") != 25 {
+		t.Error("Error in getting a modified variable 'a' - 25 != ", c20.Get("a"))
+	}
+	if c20.Get("b") != 6 {
+		t.Error("Error in getting inherited variable 'b' - 6 != ", c20.Get("b"))
+	}
+}

@@ -25,6 +25,13 @@ func (c *Context) Get(key interface{}) interface{} {
 	return c.link.search(key)
 }
 
+// Fix - fix the state to create a branch.
+func (c *Context) Fix() *Context {
+	nc := &Context{newNode()}
+	nc.link = c.link
+	return nc
+}
+
 // Node structure
 type Node struct {
 	parent *Node
@@ -34,26 +41,26 @@ type Node struct {
 
 // newNode - create a new Node-struct
 func newNode() *Node {
-	c := &Node{}
-	return c
+	n := &Node{}
+	return n
 }
 
 // search - find variable in nodes.
-func (c *Node) search(key interface{}) interface{} {
-	if c.key == key {
-		return c.value
+func (n *Node) search(key interface{}) interface{} {
+	if n.key == key {
+		return n.value
 	}
-	if c.parent != nil {
-		return c.parent.search(key)
+	if n.parent != nil {
+		return n.parent.search(key)
 	}
 	return nil
 }
 
 // add - add a node to a new variable.
-func (c *Node) add(key interface{}, value interface{}) *Node {
+func (n *Node) add(key interface{}, value interface{}) *Node {
 	x := newNode()
-	x.parent = c
-	c.key = key
-	c.value = value
+	x.parent = n
+	x.key = key
+	x.value = value
 	return x
 }
